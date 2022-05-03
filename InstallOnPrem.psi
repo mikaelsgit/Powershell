@@ -1,0 +1,23 @@
+// Start to publish navapp
+Publish-NAVApp -ServerInstance BC -Path '.\System.app' -PackageType SymbolsOnly
+
+// Syncronize app
+Sync-NAVApp -ServerInstance BC -Name 'Proseware SmartApp'
+
+// Install navapp
+Install-NAVApp -ServerInstance BC -Name 'Proseware SmartApp' -Version 2.3.4.500
+
+
+
+
+Uninstall-NAVApp -ServerInstance Beijer17PROD -Name 'CCSE-CUSTOMER-BEIJER-EXT' -Version 17.0.0.7
+Publish-Navapp -ServerInstance Beijer17PROD -Path 'C:\Cosmo\BC17ext\Cosmo Consult SE_CCSE-CUSTOMER-BEIJER-EXT_17.0.0.8.app' -SkipVerification
+Sync-Navapp -ServerInstance Beijer17PROD -Name 'CCSE-CUSTOMER-BEIJER-EXT' -Version 17.0.0.8
+Start-NavAppDataUpgrade -ServerInstance Beijer17PROD -Name 'CCSE-CUSTOMER-BEIJER-EXT' -Version 17.0.0.8
+Unpublish-Navapp -ServerInstance Beijer17PROD -Name 'CCSE-CUSTOMER-BEIJER-EXT' -Version 17.0.0.7
+
+
+Install-Module BcContainerHelper
+Get-NAVAppInfo -ServerInstance Beijer17TEST -Name 'CCSE-CUSTOMER-BEIJER-EXT' -Version 17.0.0.7
+Get-NAVAppInfo -ServerInstance Beijer17TEST
+Install-Module BcContainerHelper -force
